@@ -1,0 +1,11 @@
+{
+	"require": {
+		"slim/slim": "2.*",
+		"slim/pdo": "~1.9"
+	},
+	"autoload": {
+		"psr-4": {
+			"Virrealy\\Api\\": "src/"
+		}
+	}
+}

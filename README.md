@@ -1,2 +1,3 @@
-# Virrealy-backend
+# Virrealy REST API
+
 Hackathon project

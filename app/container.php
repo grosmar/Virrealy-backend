@@ -2,29 +2,17 @@
 
 use Slim\Helper\Set;
 use Slim\PDO\Database;
-use Virrealy\Api\Action\AddStageToGameAction;
-use Virrealy\Api\Action\CreateGameAction;
-use Virrealy\Api\Action\CreateSessionAction;
-use Virrealy\Api\Action\CreateStageAction;
-use Virrealy\Api\Action\GetSessionAction;
-use Virrealy\Api\Action\GetStageAction;
-use Virrealy\Api\Action\GetStagesAction;
-use Virrealy\Api\Action\IndexAction;
-use Virrealy\Api\Action\ValidateStageAction;
+use Virrealy\Api\Action\Game\AddStageToGameAction;
+use Virrealy\Api\Action\Game\CreateGameAction;
+use Virrealy\Api\Action\Session\CreateSessionAction;
+use Virrealy\Api\Action\Session\GetSessionAction;
+use Virrealy\Api\Action\Session\ValidateStageAction;
+use Virrealy\Api\Action\Stage\CreateStageAction;
+use Virrealy\Api\Action\Stage\GetStageAction;
+use Virrealy\Api\Action\Stage\GetStagesAction;
 use Virrealy\Api\Repository\GameRepository;
 use Virrealy\Api\Repository\StageRepository;
 use Virrealy\Api\Repository\SessionRepository;
-
-$app->container->set(
-	'action.index',
-	function () use ($app)
-	{
-		return new IndexAction(
-			$app->request(), 
-			$app->response()
-		);
-	}
-);
 
 $app->container->set(
 	'action.create_session',

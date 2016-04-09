@@ -1,10 +1,10 @@
 <?php
 
-namespace Virrealy\Api\Action;
-
+namespace Virrealy\Api\Action\Stage;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Virrealy\Api\Action\RestActionAbstract;
 use Virrealy\Api\Repository\StageRepository;
 
 class GetStagesAction extends RestActionAbstract
@@ -50,7 +50,6 @@ class GetStagesAction extends RestActionAbstract
 				'validationType' => $stage['validation_type']
 			);
 		}
-
 
 		$this->setResponse($transformedStages);
 	}

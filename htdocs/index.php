@@ -35,8 +35,6 @@ $app->configureMode(
 require_once __DIR__ . '/../app/container.php';
 
 // ROUTING
-$app->get('/', $app->container->get('action.index'));
-
 $app->post('/sessions', $app->container->get('action.create_session'));
 $app->get('/sessions/:sessionId', $app->container->get('action.get_session'));
 $app->post('/sessions/:sessionId/stages/:stageId', $app->container->get('action.validate_stage'));

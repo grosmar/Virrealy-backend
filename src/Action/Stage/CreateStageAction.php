@@ -1,9 +1,10 @@
 <?php
 
-namespace Virrealy\Api\Action;
+namespace Virrealy\Api\Action\Stage;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Virrealy\Api\Action\RestActionAbstract;
 use Virrealy\Api\Repository\StageRepository;
 use Virrealy\Api\Repository\Table\StageTable;
 

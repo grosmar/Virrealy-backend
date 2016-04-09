@@ -10,7 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $app = new Slim(
 	array(
 		'debug' => true,
-		'mode'  => 'dev'
+		'mode'  => 'prod'
 	)
 );
 
@@ -39,7 +39,7 @@ $app->get('/', $app->container->get('action.index'));
 
 $app->post('/session', $app->container->get('action.create_session'));
 $app->get('/session/:sessionId', $app->container->get('action.get_session'));
-
+$app->post('/session/:sessionId/stage/:stageId', $app->container->get('action.validate_stage'));
 $app->get('/stage/:stageId', $app->container->get('action.get_stage'));
 
 $app->run();

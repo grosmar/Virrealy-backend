@@ -2,4 +2,4 @@
 
 Hackathon project
 
-[Documentation](http://api.virrealy.dev/dist/index.html?url=/dist/swagger.yaml)
+[Documentation](http://c6b49d634b.testurl.ws/doc/index.html?url=/doc/swagger.yaml#/default)

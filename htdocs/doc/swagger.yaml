@@ -49,6 +49,34 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+  /session/{sessionId}/stage/{stageId}:
+    post:
+      summary: Validates the given answer and saves the current status.
+      parameters:
+        - name: sessionId
+          in: path
+          description: The id of session.
+          required: true
+          type: integer
+        - name: stageId
+          in: path
+          description: The id of stage.
+          required: true
+          type: integer
+        - name: answer
+          in: body
+          required: true
+          type: string
+      responses:
+        200:
+          description: The given answer is valid or not.
+          schema:
+            type: boolean
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
   /stage/{stageId}:
       get:
         summary: It returns with the given stage information.

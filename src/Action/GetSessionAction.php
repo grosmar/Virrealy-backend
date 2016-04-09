@@ -4,6 +4,7 @@ namespace Virrealy\Api\Action;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Virrealy\Api\Repository\Table\StageTable;
 use Virrealy\Api\Repository\VirrealyRepository;
 
 class GetSessionAction extends RestActionAbstract
@@ -32,7 +33,7 @@ class GetSessionAction extends RestActionAbstract
 	{
 		$sessionId = (int)$sessionId;
 
-		$session = $this->repository->getSession($sessionId);
+		$session = $this->repository->getSessionStages($sessionId);
 		if (empty($session))
 		{
 			$this->setResponse(null, 204);
@@ -49,10 +50,10 @@ class GetSessionAction extends RestActionAbstract
 
 			$stages[] = array(
 				'stageId'        => $stage['stage_id'],
-				'stageType'      => $stage['stage_type'],
-				'information'    => $stage['information'],
-				'answer'         => $stage['answer'],
-				'validationType' => $stage['validation_type']
+				'stageType'      => $stage[StageTable::TYPE],
+				'information'    => $stage[StageTable::INFORMATION],
+				'answer'         => $stage[StageTable::ANSWER],
+				'validationType' => $stage[StageTable::VALIDATION_TYPE]
 			);
 		}
 

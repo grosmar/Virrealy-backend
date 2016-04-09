@@ -29,7 +29,7 @@ class VirrealyRepository extends RepositoryAbstract
 	 *
 	 * @return array
 	 */
-	public function getSession($sessionId)
+	public function getSessionStages($sessionId)
 	{
 		$query = '
 			SELECT 
@@ -38,7 +38,7 @@ class VirrealyRepository extends RepositoryAbstract
 				G.name,
 				S.created_at,
 				ST.id as stage_id,
-				ST.type as stage_type,
+				ST.type as type,
 				ST.information,
 				ST.answer,
 				ST.validation_type

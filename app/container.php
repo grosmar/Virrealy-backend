@@ -6,6 +6,7 @@ use Virrealy\Api\Action\CreateSessionAction;
 use Virrealy\Api\Action\GetSessionAction;
 use Virrealy\Api\Action\GetStageAction;
 use Virrealy\Api\Action\IndexAction;
+use Virrealy\Api\Action\ValidateStageAction;
 use Virrealy\Api\Repository\VirrealyRepository;
 
 $app->container->singleton(
@@ -48,6 +49,18 @@ $app->container->singleton(
 	function (Set $container) use ($app)
 	{
 		return new GetStageAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
+	}
+);
+
+$app->container->singleton(
+	'action.validate_stage',
+	function (Set $container) use ($app)
+	{
+		return new ValidateStageAction(
 			$app->request(),
 			$app->response(),
 			$container->get('repository.virrealy')

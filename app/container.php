@@ -2,27 +2,16 @@
 
 use Slim\Helper\Set;
 use Slim\PDO\Database;
-use Virrealy\Api\Action\HelloAction;
+use Virrealy\Api\Action\CreateSessionAction;
+use Virrealy\Api\Action\GetSessionAction;
 use Virrealy\Api\Action\IndexAction;
-use Virrealy\Api\Repository\TestRepository;
+use Virrealy\Api\Repository\VirrealyRepository;
 
 $app->container->singleton(
 	'action.index',
-	function (Set $container) use ($app)
-	{
-		return new IndexAction(
-			$app->request(), 
-			$app->response(), 
-			$container->get('repository.test')
-		);
-	}
-);
-
-$app->container->singleton(
-	'action.hello',
 	function () use ($app)
 	{
-		return new HelloAction(
+		return new IndexAction(
 			$app->request(), 
 			$app->response()
 		);
@@ -30,22 +19,46 @@ $app->container->singleton(
 );
 
 $app->container->singleton(
-	'repository.test',
-	function (Set $container)
+	'action.create_session',
+	function (Set $container) use ($app)
 	{
-		$database = $container->get('connection.database.test');
-
-		return new TestRepository($database);
+		return new CreateSessionAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
 	}
 );
 
 $app->container->singleton(
-	'connection.database.test',
+	'action.get_session',
+	function (Set $container) use ($app)
+	{
+		return new GetSessionAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
+	}
+);
+
+$app->container->singleton(
+	'repository.virrealy',
+	function (Set $container)
+	{
+		$database = $container->get('connection.database.virrealy');
+
+		return new VirrealyRepository($database);
+	}
+);
+
+$app->container->singleton(
+	'connection.database.virrealy',
 	function () use ($app)
 	{
-		$dsn      = $app->config('database.test.dsn');
-		$user     = $app->config('database.test.user');
-		$password = $app->config('database.test.password');
+		$dsn      = $app->config('database.virrealy.dsn');
+		$user     = $app->config('database.virrealy.user');
+		$password = $app->config('database.virrealy.password');
 
 		return new Database($dsn, $user, $password);
 	}

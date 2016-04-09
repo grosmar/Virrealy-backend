@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL | E_STRICT);
+date_default_timezone_set('Europe/Berlin');
+
 use Slim\Slim;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -33,6 +36,8 @@ require_once __DIR__ . '/../app/container.php';
 
 // ROUTING
 $app->get('/', $app->container->get('action.index'));
-$app->get('/hello/:name', $app->container->get('action.hello'));
+
+$app->post('/session', $app->container->get('action.create_session'));
+$app->get('/session/:sessionId', $app->container->get('action.get_session'));
 
 $app->run();

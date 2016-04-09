@@ -2,7 +2,6 @@
 
 namespace Virrealy\Api\Repository;
 
-
 use DateTime;
 use PDO;
 
@@ -39,8 +38,9 @@ class VirrealyRepository extends RepositoryAbstract
 				G.name,
 				S.created_at,
 				ST.id as stage_id,
-				ST.information_type,
+				ST.type as stage_type,
 				ST.information,
+				ST.answer,
 				ST.validation_type
 			FROM
 				session as S 

@@ -39,7 +39,8 @@ class CreateSessionAction extends RestActionAbstract
 		$this->setResponse(
 			array(
 				'sessionId' => $sessionId
-			)
+			),
+			201
 		);
 	}
 }

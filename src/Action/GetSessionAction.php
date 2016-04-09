@@ -44,10 +44,11 @@ class GetSessionAction extends RestActionAbstract
 				$gameId = $stage['game_id'];
 
 				$stages[] = array(
-					'stageId'         => $stage['stage_id'],
-					'informationType' => $stage['information_type'],
-					'information'     => $stage['information'],
-					'validationType'  => $stage['validation_type']
+					'stageId'        => $stage['stage_id'],
+					'stageType'      => $stage['stage_type'],
+					'information'    => $stage['information'],
+					'answer'         => $stage['answer'],
+					'validationType' => $stage['validation_type']
 				);
 			}
 

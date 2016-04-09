@@ -2,6 +2,7 @@
 
 use Slim\Helper\Set;
 use Slim\PDO\Database;
+use Virrealy\Api\Action\CreateGameAction;
 use Virrealy\Api\Action\CreateSessionAction;
 use Virrealy\Api\Action\CreateStageAction;
 use Virrealy\Api\Action\GetSessionAction;
@@ -10,7 +11,7 @@ use Virrealy\Api\Action\IndexAction;
 use Virrealy\Api\Action\ValidateStageAction;
 use Virrealy\Api\Repository\VirrealyRepository;
 
-$app->container->singleton(
+$app->container->set(
 	'action.index',
 	function () use ($app)
 	{
@@ -21,7 +22,7 @@ $app->container->singleton(
 	}
 );
 
-$app->container->singleton(
+$app->container->set(
 	'action.create_session',
 	function (Set $container) use ($app)
 	{
@@ -33,7 +34,7 @@ $app->container->singleton(
 	}
 );
 
-$app->container->singleton(
+$app->container->set(
 	'action.get_session',
 	function (Set $container) use ($app)
 	{
@@ -45,7 +46,7 @@ $app->container->singleton(
 	}
 );
 
-$app->container->singleton(
+$app->container->set(
 	'action.create_stage',
 	function (Set $container) use ($app)
 	{
@@ -57,7 +58,7 @@ $app->container->singleton(
 	}
 );
 
-$app->container->singleton(
+$app->container->set(
 	'action.get_stage',
 	function (Set $container) use ($app)
 	{
@@ -69,11 +70,23 @@ $app->container->singleton(
 	}
 );
 
-$app->container->singleton(
+$app->container->set(
 	'action.validate_stage',
 	function (Set $container) use ($app)
 	{
 		return new ValidateStageAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
+	}
+);
+
+$app->container->set(
+	'action.create_game',
+	function (Set $container) use ($app)
+	{
+		return new CreateGameAction(
 			$app->request(),
 			$app->response(),
 			$container->get('repository.virrealy')

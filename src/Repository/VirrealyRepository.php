@@ -95,4 +95,19 @@ class VirrealyRepository extends RepositoryAbstract
 
 		return (int)$insert->execute();
 	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return int
+	 */
+	public function createGame($name)
+	{
+		$insert = $this->database
+			->insert(array('name'))
+			->into('game')
+			->values(array($name));
+
+		return (int)$insert->execute();
+	}
 }

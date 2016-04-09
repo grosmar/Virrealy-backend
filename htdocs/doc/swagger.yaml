@@ -118,7 +118,7 @@ paths:
             type: string
         response:
           201:
-            description: The game session has been created.
+            description: The stage has been created.
             schema:
               type: array
               items:
@@ -152,6 +152,30 @@ paths:
             description: Internal Server Error - General (database) error.
         tags:
           - stages
+
+  /games:
+      post:
+        summary: It creates a new game.
+        parameters:
+          - name: name
+            in: formData
+            description: The fantasy name of the game.
+            required: true
+            type: string
+        response:
+          201:
+            description: The game has been created.
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/gameId'
+          400:
+            description: Bad Request - Invalid or missing parameter.
+          500:
+            description: Internal Server Error - General (database) error.
+        tags:
+          - games
+
             
 definitions:
   sessionId:
@@ -164,6 +188,12 @@ definitions:
     type: object
     properties:
       stageId:
+        type: integer
+
+  gameId:
+    type: object
+    properties:
+      gameId:
         type: integer
 
   Session:

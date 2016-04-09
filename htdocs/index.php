@@ -41,7 +41,9 @@ $app->post('/sessions', $app->container->get('action.create_session'));
 $app->get('/sessions/:sessionId', $app->container->get('action.get_session'));
 $app->post('/sessions/:sessionId/stages/:stageId', $app->container->get('action.validate_stage'));
 
-$app->get('/stages/:stageId', $app->container->get('action.get_stage'));
 $app->post('/stages', $app->container->get('action.create_stage'));
+$app->get('/stages/:stageId', $app->container->get('action.get_stage'));
+
+$app->post('/games', $app->container->get('action.create_game'));
 
 $app->run();

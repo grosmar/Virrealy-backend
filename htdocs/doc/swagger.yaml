@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Virrealy API
   version: "1"
-host: api.virrealy.dev
+host: c6b49d634b.testurl.ws
 schemes:
   - http
 produces:

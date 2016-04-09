@@ -61,29 +61,23 @@ class ValidateStageAction extends RestActionAbstract
 			return;
 		}
 
-		$userAnswer       = (string)$this->request->post('answer');
-		$correctAnswer    = $currentStage[StageTable::ANSWER];
-		$currentStageType = $currentStage[StageTable::TYPE];
+		$userAnswer            = (string)$this->request->post('answer');
+		$correctAnswer         = $currentStage[StageTable::ANSWER];
+		$currentValidationType = $currentStage[StageTable::VALIDATION_TYPE];
 
 		$isValid = false;
-		switch ($currentStageType)
+		switch ($currentValidationType)
 		{
-			case StageTable::TYPE_PASSWORD:
+			case StageTable::VALIDATION_TYPE_TEXT:
 				$isValid = $userAnswer === $correctAnswer;
 				break;
 
-			case StageTable::TYPE_GPS:
+			case StageTable::VALIDATION_TYPE_GPS:
 				// TODO: GPS validation...
 				$isValid = true;
 				break;
 
-			case StageTable::TYPE_PATH_FINDER:
-				// TODO: PATH finder validation...
-				$isValid = true;
-				break;
-
-			case StageTable::TYPE_AUGMENTED_REALITY:
-				// TODO: Augmented reality validation...
+			case StageTable::VALIDATION_TYPE_NO:
 				$isValid = true;
 				break;
 

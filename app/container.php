@@ -4,8 +4,10 @@ use Slim\Helper\Set;
 use Slim\PDO\Database;
 use Virrealy\Api\Action\Game\AddStageToGameAction;
 use Virrealy\Api\Action\Game\CreateGameAction;
+use Virrealy\Api\Action\Game\GetGamesAction;
 use Virrealy\Api\Action\Session\CreateSessionAction;
 use Virrealy\Api\Action\Session\GetSessionAction;
+use Virrealy\Api\Action\Session\GetSessionsAction;
 use Virrealy\Api\Action\Session\ValidateStageAction;
 use Virrealy\Api\Action\Stage\CreateStageAction;
 use Virrealy\Api\Action\Stage\GetStageAction;
@@ -13,6 +15,18 @@ use Virrealy\Api\Action\Stage\GetStagesAction;
 use Virrealy\Api\Repository\GameRepository;
 use Virrealy\Api\Repository\StageRepository;
 use Virrealy\Api\Repository\SessionRepository;
+
+$app->container->set(
+	'action.get_sessions',
+	function (Set $container) use ($app)
+	{
+		return new GetSessionsAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.session')
+		);
+	}
+);
 
 $app->container->set(
 	'action.create_session',
@@ -82,6 +96,18 @@ $app->container->set(
 			$app->request(),
 			$app->response(),
 			$container->get('repository.session')
+		);
+	}
+);
+
+$app->container->set(
+	'action.get_games',
+	function (Set $container) use ($app)
+	{
+		return new GetGamesAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.game')
 		);
 	}
 );

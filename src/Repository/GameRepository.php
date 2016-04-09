@@ -2,6 +2,8 @@
 
 namespace Virrealy\Api\Repository;
 
+use PDO;
+
 class GameRepository extends RepositoryAbstract
 {
 	/**
@@ -34,6 +36,20 @@ class GameRepository extends RepositoryAbstract
 		$statement = $select->execute();
 
 		return $statement->fetch();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function findAll()
+	{
+		$select = $this->database
+			->select()
+			->from('game');
+
+		$statement = $select->execute();
+
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**

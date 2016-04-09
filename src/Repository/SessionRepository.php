@@ -27,6 +27,37 @@ class SessionRepository extends RepositoryAbstract
 	/**
 	 * @param int $sessionId
 	 *
+	 * @return mixed
+	 */
+	public function find($sessionId)
+	{
+		$select = $this->database
+			->select()
+			->from('session')
+			->where('id', '=', $sessionId);
+
+		$statement = $select->execute();
+
+		return $statement->fetch();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function findAll()
+	{
+		$select = $this->database
+			->select()
+			->from('session');
+
+		$statement = $select->execute();
+
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param int $sessionId
+	 *
 	 * @return array
 	 */
 	public function getSessionStages($sessionId)

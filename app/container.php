@@ -8,6 +8,7 @@ use Virrealy\Api\Action\CreateSessionAction;
 use Virrealy\Api\Action\CreateStageAction;
 use Virrealy\Api\Action\GetSessionAction;
 use Virrealy\Api\Action\GetStageAction;
+use Virrealy\Api\Action\GetStagesAction;
 use Virrealy\Api\Action\IndexAction;
 use Virrealy\Api\Action\ValidateStageAction;
 use Virrealy\Api\Repository\VirrealyRepository;
@@ -52,6 +53,18 @@ $app->container->set(
 	function (Set $container) use ($app)
 	{
 		return new CreateStageAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
+	}
+);
+
+$app->container->set(
+	'action.get_stages',
+	function (Set $container) use ($app)
+	{
+		return new GetStagesAction(
 			$app->request(),
 			$app->response(),
 			$container->get('repository.virrealy')

@@ -85,6 +85,22 @@ paths:
         - sessions
 
   /stages:
+      get:
+        summary: Get the list of all stages.
+        responses:
+          200:
+            description: The full of list for stages.
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/Stage'
+          204:
+            description: No Content - The stages does not configured.
+          500:
+            description: Internal Server Error - General (database) error.
+        tags:
+          - stages
+
       post:
         summary: It creates a new stage.
         parameters:
@@ -116,7 +132,7 @@ paths:
             in: formData
             description: The secret answer.
             type: string
-        response:
+        responses:
           201:
             description: The stage has been created.
             schema:
@@ -162,7 +178,7 @@ paths:
             description: The fantasy name of the game.
             required: true
             type: string
-        response:
+        responses:
           201:
             description: The game has been created.
             schema:
@@ -177,33 +193,33 @@ paths:
           - games
 
   /games/{gameId}/stages/{stageId}:
-    post:
-      summary: Add a stage to the game.
-      parameters:
-        - name: gameId
-          in: path
-          description: The ID of game.
-          required: true
-          type: integer
-        - name: stageId
-          in: path
-          description: The ID of stage.
-          required: true
-          type: integer
-        - name: order
-          in: query
-          description: The order number of the stage.
-          type: integer
-      response:
-        200:
-          description: The stage has been added to game.
-        400:
-          description: Bad Request - Invalid or missing parameter.
-        500:
-          description: Internal Server Error - General (database) error.
-      tags:
-        - games
-            
+      post:
+        summary: Add an existing stage to an existing game.
+        parameters:
+          - name: gameId
+            in: path
+            description: The ID of game.
+            required: true
+            type: integer
+          - name: stageId
+            in: path
+            description: The ID of stage.
+            required: true
+            type: integer
+          - name: order
+            in: query
+            description: The order number of the stage.
+            type: integer
+        responses:
+          200:
+            description: The stage has been added to game.
+          400:
+            description: Bad Request - Invalid or missing parameter.
+          500:
+            description: Internal Server Error - General (database) error.
+        tags:
+          - games
+
 definitions:
   sessionId:
     type: object

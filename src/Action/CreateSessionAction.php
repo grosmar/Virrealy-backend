@@ -33,7 +33,7 @@ class CreateSessionAction extends RestActionAbstract
 		$gameId = (int)$this->request->post('gameId');
 		if (empty($gameId))
 		{
-			$this->setResponse(null, 400);
+			$this->setBadRequestResponse();
 
 			return;
 		}
@@ -41,7 +41,7 @@ class CreateSessionAction extends RestActionAbstract
 		$sessionId = (int)$this->repository->createSession($gameId);
 		if (empty($sessionId))
 		{
-			$this->setResponse(null, 500);
+			$this->setInternalServerError();
 
 			return;
 		}

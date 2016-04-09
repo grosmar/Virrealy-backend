@@ -24,8 +24,8 @@ paths:
             type: array
             items:
               $ref: '#/definitions/SessionId'
-        404:
-          description: Not found - The requested resource does not exist.
+        400:
+          description: Bad Request - Invalid or missing parameter.
         500:
           description: Internal Server Error - General (database) error.
   /session/{sessionId}:
@@ -73,7 +73,7 @@ paths:
           schema:
             type: boolean
         400:
-          description: Bad Request - Invalid parameter
+          description: Bad Request - Invalid or missing parameter.
         500:
           description: Internal Server Error - General (database) error.
 
@@ -94,7 +94,7 @@ paths:
               items:
                 $ref: '#/definitions/Stage'
           400:
-            description: Bad Request - Invalid parameter
+            description: Bad Request - Invalid or missing parameter.
           500:
             description: Internal Server Error - General (database) error.
             

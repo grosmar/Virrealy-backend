@@ -37,7 +37,7 @@ class ValidateStageAction extends RestActionAbstract
 		$stages = $this->repository->getSessionStages($sessionId);
 		if (empty($stages))
 		{
-			$this->setResponse(null, 400);
+			$this->setBadRequestResponse();
 
 			return;
 		}
@@ -56,7 +56,7 @@ class ValidateStageAction extends RestActionAbstract
 
 		if (empty($currentStage))
 		{
-			$this->setResponse(null, 400);
+			$this->setBadRequestResponse();
 
 			return;
 		}
@@ -85,15 +85,6 @@ class ValidateStageAction extends RestActionAbstract
 				break;
 		}
 
-		if (!$isValid)
-		{
-			$this->setResponse(false, 200);
-
-			return;
-		}
-
-		// TODO: Save current success stage...
-
-		$this->setResponse(true, 200);
+		$this->setResponse($isValid);
 	}
 }

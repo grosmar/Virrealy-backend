@@ -33,7 +33,7 @@ class GetStageAction extends RestActionAbstract
 		$stageId = (int)$stageId;
 		if (empty($stageId))
 		{
-			$this->setResponse(null, 400);
+			$this->setBadRequestResponse();
 		}
 
 		$stage = $this->repository->getStage($stageId);

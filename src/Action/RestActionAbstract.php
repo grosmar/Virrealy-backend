@@ -37,4 +37,19 @@ abstract class RestActionAbstract
 		$this->response->status($statusCode);
 		$this->response->body(json_encode($data));
 	}
+
+	protected function setBadRequestResponse()
+	{
+		$this->setResponse(null, 400);
+	}
+
+	protected function setNotFoundResponse()
+	{
+		$this->setResponse(null, 404);
+	}
+
+	protected function setInternalServerError()
+	{
+		$this->setResponse(null, 500);
+	}
 }

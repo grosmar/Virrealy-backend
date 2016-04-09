@@ -7,29 +7,10 @@ use Slim\Slim;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$app = new Slim(
-	array(
-		'debug' => true,
-		'mode'  => 'prod'
-	)
-);
+$app = new Slim();
 
-// APPLICATION CONFIGURATION
-$app->configureMode(
-	'prod',
-	function () use ($app)
-	{
-		$app->config(require __DIR__ . '/../app/prod/database_config.php');
-	}
-);
-
-$app->configureMode(
-	'dev',
-	function () use ($app)
-	{
-		$app->config(require __DIR__ . '/../app/dev/database_config.php');
-	}
-);
+// DATABASE CONFIGURATION
+$app->config(require __DIR__ . '/../app/database_config.php');
 
 // CONTAINER
 require_once __DIR__ . '/../app/container.php';

@@ -5,24 +5,24 @@ namespace Virrealy\Api\Action;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Virrealy\Api\Repository\Table\StageTable;
-use Virrealy\Api\Repository\VirrealyRepository;
+use Virrealy\Api\Repository\SessionRepository;
 
 class ValidateStageAction extends RestActionAbstract
 {
 	/**
-	 * @var VirrealyRepository
+	 * @var SessionRepository
 	 */
 	private $repository;
 
 	/**
-	 * @param Request            $request
-	 * @param Response           $response
-	 * @param VirrealyRepository $repository
+	 * @param Request           $request
+	 * @param Response          $response
+	 * @param SessionRepository $repository
 	 */
 	public function __construct(
 		Request $request,
 		Response $response,
-		VirrealyRepository $repository
+		SessionRepository $repository
 	) {
 		parent::__construct($request, $response);
 
@@ -69,7 +69,7 @@ class ValidateStageAction extends RestActionAbstract
 		switch ($currentValidationType)
 		{
 			case StageTable::VALIDATION_TYPE_TEXT:
-				$isValid = $userAnswer === $correctAnswer;
+				$isValid = mb_strtolower($userAnswer) === mb_strtolower($correctAnswer);
 				break;
 
 			case StageTable::VALIDATION_TYPE_GPS:

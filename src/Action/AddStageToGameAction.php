@@ -2,27 +2,26 @@
 
 namespace Virrealy\Api\Action;
 
-
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Virrealy\Api\Repository\VirrealyRepository;
+use Virrealy\Api\Repository\GameRepository;
 
 class AddStageToGameAction extends RestActionAbstract
 {
 	/**
-	 * @var VirrealyRepository
+	 * @var GameRepository
 	 */
 	private $repository;
 
 	/**
-	 * @param Request            $request
-	 * @param Response           $response
-	 * @param VirrealyRepository $repository
+	 * @param Request        $request
+	 * @param Response       $response
+	 * @param GameRepository $repository
 	 */
 	public function __construct(
 		Request $request,
 		Response $response,
-		VirrealyRepository $repository
+		GameRepository $repository
 	) {
 		parent::__construct($request, $response);
 
@@ -37,7 +36,7 @@ class AddStageToGameAction extends RestActionAbstract
 
 		// TODO: Check it is exist or not...
 
-		$this->repository->addStageToGame($gameId, $stageId, $order);
+		$this->repository->addStage($gameId, $stageId, $order);
 
 		$this->setResponse(null);
 	}

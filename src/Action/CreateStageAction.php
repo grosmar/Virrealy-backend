@@ -4,25 +4,25 @@ namespace Virrealy\Api\Action;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Virrealy\Api\Repository\StageRepository;
 use Virrealy\Api\Repository\Table\StageTable;
-use Virrealy\Api\Repository\VirrealyRepository;
 
 class CreateStageAction extends RestActionAbstract
 {
 	/**
-	 * @var VirrealyRepository
+	 * @var StageRepository
 	 */
 	private $repository;
 
 	/**
-	 * @param Request            $request
-	 * @param Response           $response
-	 * @param VirrealyRepository $repository
+	 * @param Request         $request
+	 * @param Response        $response
+	 * @param StageRepository $repository
 	 */
 	public function __construct(
 		Request $request,
 		Response $response,
-		VirrealyRepository $repository
+		StageRepository $repository
 	) {
 		parent::__construct($request, $response);
 
@@ -42,7 +42,7 @@ class CreateStageAction extends RestActionAbstract
 
 			return;
 		}
-		
+
 		$stageTable = new StageTable();
 
 		if (!$stageTable->isValidType($type))
@@ -59,7 +59,7 @@ class CreateStageAction extends RestActionAbstract
 			return;
 		}
 
-		$stageId = $this->repository->createStage($type, $information, $validationType, $answer);
+		$stageId = $this->repository->create($type, $information, $validationType, $answer);
 
 		$this->setResponse(
 			array(

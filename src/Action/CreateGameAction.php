@@ -4,24 +4,24 @@ namespace Virrealy\Api\Action;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Virrealy\Api\Repository\VirrealyRepository;
+use Virrealy\Api\Repository\GameRepository;
 
 class CreateGameAction extends RestActionAbstract
 {
 	/**
-	 * @var VirrealyRepository
+	 * @var GameRepository
 	 */
 	private $repository;
 
 	/**
-	 * @param Request            $request
-	 * @param Response           $response
-	 * @param VirrealyRepository $repository
+	 * @param Request        $request
+	 * @param Response       $response
+	 * @param GameRepository $repository
 	 */
 	public function __construct(
 		Request $request,
 		Response $response,
-		VirrealyRepository $repository
+		GameRepository $repository
 	) {
 		parent::__construct($request, $response);
 
@@ -38,7 +38,7 @@ class CreateGameAction extends RestActionAbstract
 			return;
 		}
 
-		$gameId = $this->repository->createGame($name);
+		$gameId = $this->repository->create($name);
 
 		$this->setResponse(
 			array(

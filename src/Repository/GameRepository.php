@@ -1,0 +1,38 @@
+<?php
+
+namespace Virrealy\Api\Repository;
+
+class GameRepository extends RepositoryAbstract
+{
+	/**
+	 * @param string $name
+	 *
+	 * @return int
+	 */
+	public function create($name)
+	{
+		$insert = $this->database
+			->insert(array('name'))
+			->into('game')
+			->values(array($name));
+
+		return (int)$insert->execute();
+	}
+
+	/**
+	 * @param int $gameId
+	 * @param int $stageId
+	 * @param int $order
+	 *
+	 * @return int
+	 */
+	public function addStage($gameId, $stageId, $order)
+	{
+		$insert = $this->database
+			->insert(array('game_id', 'stage_id', '`order`'))
+			->into('game_stage')
+			->values(array($gameId, $stageId, $order));
+
+		return (int)$insert->execute();
+	}
+}

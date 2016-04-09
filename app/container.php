@@ -11,7 +11,9 @@ use Virrealy\Api\Action\GetStageAction;
 use Virrealy\Api\Action\GetStagesAction;
 use Virrealy\Api\Action\IndexAction;
 use Virrealy\Api\Action\ValidateStageAction;
-use Virrealy\Api\Repository\VirrealyRepository;
+use Virrealy\Api\Repository\GameRepository;
+use Virrealy\Api\Repository\StageRepository;
+use Virrealy\Api\Repository\SessionRepository;
 
 $app->container->set(
 	'action.index',
@@ -31,7 +33,7 @@ $app->container->set(
 		return new CreateSessionAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.session')
 		);
 	}
 );
@@ -43,7 +45,7 @@ $app->container->set(
 		return new GetSessionAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.session')
 		);
 	}
 );
@@ -55,7 +57,7 @@ $app->container->set(
 		return new CreateStageAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.stage')
 		);
 	}
 );
@@ -67,7 +69,7 @@ $app->container->set(
 		return new GetStagesAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.stage')
 		);
 	}
 );
@@ -79,7 +81,7 @@ $app->container->set(
 		return new GetStageAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.stage')
 		);
 	}
 );
@@ -91,7 +93,7 @@ $app->container->set(
 		return new ValidateStageAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.session')
 		);
 	}
 );
@@ -103,7 +105,7 @@ $app->container->set(
 		return new CreateGameAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.game')
 		);
 	}
 );
@@ -115,18 +117,38 @@ $app->container->set(
 		return new AddStageToGameAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.virrealy')
+			$container->get('repository.game')
 		);
 	}
 );
 
 $app->container->singleton(
-	'repository.virrealy',
+	'repository.session',
 	function (Set $container)
 	{
 		$database = $container->get('connection.database.virrealy');
 
-		return new VirrealyRepository($database);
+		return new SessionRepository($database);
+	}
+);
+
+$app->container->singleton(
+	'repository.stage',
+	function (Set $container)
+	{
+		$database = $container->get('connection.database.virrealy');
+
+		return new StageRepository($database);
+	}
+);
+
+$app->container->singleton(
+	'repository.game',
+	function (Set $container)
+	{
+		$database = $container->get('connection.database.virrealy');
+
+		return new GameRepository($database);
 	}
 );
 

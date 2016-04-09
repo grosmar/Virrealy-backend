@@ -4,24 +4,24 @@ namespace Virrealy\Api\Action;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Virrealy\Api\Repository\VirrealyRepository;
+use Virrealy\Api\Repository\StageRepository;
 
 class GetStageAction extends RestActionAbstract
 {
 	/**
-	 * @var VirrealyRepository
+	 * @var StageRepository
 	 */
 	private $repository;
 
 	/**
-	 * @param Request            $request
-	 * @param Response           $response
-	 * @param VirrealyRepository $repository
+	 * @param Request         $request
+	 * @param Response        $response
+	 * @param StageRepository $repository
 	 */
 	public function __construct(
 		Request $request,
 		Response $response,
-		VirrealyRepository $repository
+		StageRepository $repository
 	) {
 		parent::__construct($request, $response);
 
@@ -36,7 +36,7 @@ class GetStageAction extends RestActionAbstract
 			$this->setBadRequestResponse();
 		}
 
-		$stage = $this->repository->getStage($stageId);
+		$stage = $this->repository->find($stageId);
 		if (empty($stage))
 		{
 			$this->setResponse(null, 204);

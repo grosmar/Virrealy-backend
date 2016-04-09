@@ -18,16 +18,16 @@ paths:
           required: true
           type: integer
       responses:
-        200:
-          description: An array of price estimates by product
+        201:
+          description: The game session has been created.
           schema:
             type: array
             items:
               $ref: '#/definitions/SessionId'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
+        404:
+          description: Not found - The requested resource does not exist.
+        500:
+          description: Internal Server Error - General (database) error.
   /session/{sessionId}:
     get:
       summary: It returns with the game session information.
@@ -44,10 +44,10 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Session'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
+        204:
+          description: No Content - The given session does not exist.
+        500:
+          description: Internal Server Error - General (database) error.
 
   /session/{sessionId}/stage/{stageId}:
     post:
@@ -72,10 +72,10 @@ paths:
           description: The given answer is valid or not.
           schema:
             type: boolean
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
+        400:
+          description: Bad Request - Invalid parameter
+        500:
+          description: Internal Server Error - General (database) error.
 
   /stage/{stageId}:
       get:
@@ -93,10 +93,10 @@ paths:
               type: array
               items:
                 $ref: '#/definitions/Stage'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+          400:
+            description: Bad Request - Invalid parameter
+          500:
+            description: Internal Server Error - General (database) error.
             
 definitions:
   SessionId:
@@ -128,15 +128,4 @@ definitions:
       answer:
         type: string
       validationType:
-        type: string
-
-  Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
         type: string

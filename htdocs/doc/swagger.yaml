@@ -215,6 +215,8 @@ paths:
             description: The stage has been added to game.
           400:
             description: Bad Request - Invalid or missing parameter.
+          404:
+            description: Not Found - The given resource not found.
           500:
             description: Internal Server Error - General (database) error.
         tags:

@@ -21,6 +21,23 @@ class GameRepository extends RepositoryAbstract
 
 	/**
 	 * @param int $gameId
+	 *
+	 * @return mixed
+	 */
+	public function find($gameId)
+	{
+		$select = $this->database
+			->select()
+			->from('game')
+			->where('id', '=', $gameId);
+
+		$statement = $select->execute();
+
+		return $statement->fetch();
+	}
+
+	/**
+	 * @param int $gameId
 	 * @param int $stageId
 	 * @param int $order
 	 *

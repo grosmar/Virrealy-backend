@@ -105,7 +105,8 @@ $app->container->set(
 		return new AddStageToGameAction(
 			$app->request(),
 			$app->response(),
-			$container->get('repository.game')
+			$container->get('repository.game'),
+			$container->get('repository.stage')
 		);
 	}
 );

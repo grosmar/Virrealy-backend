@@ -8,7 +8,7 @@ schemes:
 produces:
   - application/json
 paths:
-  /session:
+  /sessions:
     post:
       summary: It initializes a game session and return with the identification of the session.
       parameters:
@@ -23,12 +23,15 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/SessionId'
+              $ref: '#/definitions/sessionId'
         400:
           description: Bad Request - Invalid or missing parameter.
         500:
           description: Internal Server Error - General (database) error.
-  /session/{sessionId}:
+      tags:
+        - sessions
+
+  /sessions/{sessionId}:
     get:
       summary: It returns with the game session information.
       parameters:
@@ -48,8 +51,10 @@ paths:
           description: No Content - The given session does not exist.
         500:
           description: Internal Server Error - General (database) error.
+      tags:
+        - sessions
 
-  /session/{sessionId}/stage/{stageId}:
+  /sessions/{sessionId}/stages/{stageId}:
     post:
       summary: Validates the given answer and saves the current status.
       parameters:
@@ -76,8 +81,56 @@ paths:
           description: Bad Request - Invalid or missing parameter.
         500:
           description: Internal Server Error - General (database) error.
+      tags:
+        - sessions
 
-  /stage/{stageId}:
+  /stages:
+      post:
+        summary: It creates a new stage.
+        parameters:
+          - name: stageType
+            in: formData
+            description: The type of the stage.
+            required: true
+            type: string
+            enum:
+              - PASSWORD
+              - GPS
+              - PATH_FINDER
+              - AUGMENTED_REALITY
+          - name: information
+            in: formData
+            description: The given stage information to display.
+            required: true
+            type: string
+          - name: validationType
+            in: formData
+            description: The type of the validation.
+            required: true
+            type: string
+            enum:
+              - TEXT
+              - GPS
+              - NO
+          - name: answer
+            in: formData
+            description: The secret answer.
+            type: string
+        response:
+          201:
+            description: The game session has been created.
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/stageId'
+          400:
+            description: Bad Request - Invalid or missing parameter.
+          500:
+            description: Internal Server Error - General (database) error.
+        tags:
+          - stages
+
+  /stages/{stageId}:
       get:
         summary: It returns with the given stage information.
         parameters:
@@ -97,12 +150,20 @@ paths:
             description: Bad Request - Invalid or missing parameter.
           500:
             description: Internal Server Error - General (database) error.
+        tags:
+          - stages
             
 definitions:
-  SessionId:
+  sessionId:
     type: object
     properties:
       sessionId:
+        type: integer
+
+  stageId:
+    type: object
+    properties:
+      stageId:
         type: integer
 
   Session:

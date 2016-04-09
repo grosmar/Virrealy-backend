@@ -21,7 +21,7 @@ class VirrealyRepository extends RepositoryAbstract
 			->into('session')
 			->values(array($gameId, $now));
 
-		return $insert->execute();
+		return (int)$insert->execute();
 	}
 
 	/**
@@ -76,5 +76,23 @@ class VirrealyRepository extends RepositoryAbstract
 		$statement = $select->execute();
 
 		return $statement->fetch();
+	}
+
+	/**
+	 * @param string $type
+	 * @param string $information
+	 * @param string $answer
+	 * @param string $validationType
+	 *
+	 * @return int
+	 */
+	public function createStage($type, $information, $answer, $validationType)
+	{
+		$insert = $this->database
+			->insert(array('type', 'information', 'answer', 'validation_type'))
+			->into('stage')
+			->values(array($type, $information, $answer, $validationType));
+
+		return (int)$insert->execute();
 	}
 }

@@ -4,6 +4,7 @@ use Slim\Helper\Set;
 use Slim\PDO\Database;
 use Virrealy\Api\Action\CreateSessionAction;
 use Virrealy\Api\Action\GetSessionAction;
+use Virrealy\Api\Action\GetStageAction;
 use Virrealy\Api\Action\IndexAction;
 use Virrealy\Api\Repository\VirrealyRepository;
 
@@ -35,6 +36,18 @@ $app->container->singleton(
 	function (Set $container) use ($app)
 	{
 		return new GetSessionAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
+	}
+);
+
+$app->container->singleton(
+	'action.get_stage',
+	function (Set $container) use ($app)
+	{
+		return new GetStageAction(
 			$app->request(),
 			$app->response(),
 			$container->get('repository.virrealy')

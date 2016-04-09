@@ -60,4 +60,21 @@ class VirrealyRepository extends RepositoryAbstract
 
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+	/**
+	 * @param int $stageId
+	 *
+	 * @return mixed
+	 */
+	public function getStage($stageId)
+	{
+		$select = $this->database
+			->select()
+			->from('stage')
+			->where('id', '=', $stageId);
+
+		$statement = $select->execute();
+
+		return $statement->fetch();
+	}
 }

@@ -33,36 +33,35 @@ class GetSessionAction extends RestActionAbstract
 		$sessionId = (int)$sessionId;
 
 		$session = $this->repository->getSession($sessionId);
-
-		if (!empty($session))
+		if (empty($session))
 		{
-			$gameId = 0;
-			$stages = array();
-
-			foreach ($session as $stage)
-			{
-				$gameId = $stage['game_id'];
-
-				$stages[] = array(
-					'stageId'        => $stage['stage_id'],
-					'stageType'      => $stage['stage_type'],
-					'information'    => $stage['information'],
-					'answer'         => $stage['answer'],
-					'validationType' => $stage['validation_type']
-				);
-			}
-
-			$this->setResponse(
-				array(
-					'sessionId' => $sessionId,
-					'gameId'    => $gameId,
-					'stages'    => $stages
-				)
-			);
+			$this->setResponse(null, 204);
 
 			return;
 		}
 
-		$this->setResponse(null, 204);
+		$gameId = 0;
+		$stages = array();
+
+		foreach ($session as $stage)
+		{
+			$gameId = $stage['game_id'];
+
+			$stages[] = array(
+				'stageId'        => $stage['stage_id'],
+				'stageType'      => $stage['stage_type'],
+				'information'    => $stage['information'],
+				'answer'         => $stage['answer'],
+				'validationType' => $stage['validation_type']
+			);
+		}
+
+		$this->setResponse(
+			array(
+				'sessionId' => $sessionId,
+				'gameId'    => $gameId,
+				'stages'    => $stages
+			)
+		);
 	}
 }

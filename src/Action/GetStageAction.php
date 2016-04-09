@@ -6,7 +6,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Virrealy\Api\Repository\VirrealyRepository;
 
-class CreateSessionAction extends RestActionAbstract
+class GetStageAction extends RestActionAbstract
 {
 	/**
 	 * @var VirrealyRepository
@@ -28,29 +28,30 @@ class CreateSessionAction extends RestActionAbstract
 		$this->repository = $repository;
 	}
 
-	public function __invoke()
+	public function __invoke($stageId)
 	{
-		$gameId = (int)$this->request->post('gameId');
-		if (empty($gameId))
+		$stageId = (int)$stageId;
+		if (empty($stageId))
 		{
 			$this->setResponse(null, 400);
-
-			return;
 		}
 
-		$sessionId = (int)$this->repository->createSession($gameId);
-		if (empty($sessionId))
+		$stage = $this->repository->getStage($stageId);
+		if (empty($stage))
 		{
-			$this->setResponse(null, 500);
+			$this->setResponse(null, 204);
 
 			return;
 		}
 
 		$this->setResponse(
 			array(
-				'sessionId' => $sessionId
-			),
-			201
+				'stageId'        => $stage['id'],
+				'stageType'      => $stage['type'],
+				'information'    => $stage['information'],
+				'answer'         => $stage['answer'],
+				'validationType' => $stage['validation_type']
+			)
 		);
 	}
 }

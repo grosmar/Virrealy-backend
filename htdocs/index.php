@@ -40,4 +40,6 @@ $app->get('/', $app->container->get('action.index'));
 $app->post('/session', $app->container->get('action.create_session'));
 $app->get('/session/:sessionId', $app->container->get('action.get_session'));
 
+$app->get('/stage/:stageId', $app->container->get('action.get_stage'));
+
 $app->run();

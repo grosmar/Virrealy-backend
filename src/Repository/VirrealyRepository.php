@@ -110,4 +110,14 @@ class VirrealyRepository extends RepositoryAbstract
 
 		return (int)$insert->execute();
 	}
+
+	public function addStageToGame($gameId, $stageId, $order)
+	{
+		$insert = $this->database
+			->insert(array('game_id', 'stage_id', '`order`'))
+			->into('game_stage')
+			->values(array($gameId, $stageId, $order));
+
+		return (int)$insert->execute();
+	}
 }

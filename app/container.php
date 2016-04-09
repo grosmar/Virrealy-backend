@@ -2,6 +2,7 @@
 
 use Slim\Helper\Set;
 use Slim\PDO\Database;
+use Virrealy\Api\Action\AddStageToGameAction;
 use Virrealy\Api\Action\CreateGameAction;
 use Virrealy\Api\Action\CreateSessionAction;
 use Virrealy\Api\Action\CreateStageAction;
@@ -87,6 +88,18 @@ $app->container->set(
 	function (Set $container) use ($app)
 	{
 		return new CreateGameAction(
+			$app->request(),
+			$app->response(),
+			$container->get('repository.virrealy')
+		);
+	}
+);
+
+$app->container->set(
+	'action.add_stage_to_game',
+	function (Set $container) use ($app)
+	{
+		return new AddStageToGameAction(
 			$app->request(),
 			$app->response(),
 			$container->get('repository.virrealy')

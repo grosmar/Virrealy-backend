@@ -45,5 +45,6 @@ $app->post('/stages', $app->container->get('action.create_stage'));
 $app->get('/stages/:stageId', $app->container->get('action.get_stage'));
 
 $app->post('/games', $app->container->get('action.create_game'));
+$app->post('/games/:gameId/stages/:stageId', $app->container->get('action.add_stage_to_game'));
 
 $app->run();

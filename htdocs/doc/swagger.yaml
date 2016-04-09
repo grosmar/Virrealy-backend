@@ -176,6 +176,33 @@ paths:
         tags:
           - games
 
+  /games/{gameId}/stages/{stageId}:
+    post:
+      summary: Add a stage to the game.
+      parameters:
+        - name: gameId
+          in: path
+          description: The ID of game.
+          required: true
+          type: integer
+        - name: stageId
+          in: path
+          description: The ID of stage.
+          required: true
+          type: integer
+        - name: order
+          in: query
+          description: The order number of the stage.
+          type: integer
+      response:
+        200:
+          description: The stage has been added to game.
+        400:
+          description: Bad Request - Invalid or missing parameter.
+        500:
+          description: Internal Server Error - General (database) error.
+      tags:
+        - games
             
 definitions:
   sessionId:

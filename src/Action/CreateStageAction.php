@@ -4,6 +4,7 @@ namespace Virrealy\Api\Action;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Virrealy\Api\Repository\Table\StageTable;
 use Virrealy\Api\Repository\VirrealyRepository;
 
 class CreateStageAction extends RestActionAbstract
@@ -32,12 +33,33 @@ class CreateStageAction extends RestActionAbstract
 	{
 		$type           = (string)$this->request->post('stageType');
 		$information    = (string)$this->request->post('information');
-		$answer         = (string)$this->request->post('answer');
 		$validationType = (string)$this->request->post('validationType');
+		$answer         = (string)$this->request->post('answer');
 
-		// TODO: Validation....
+		if (empty($type) || empty($information) || empty($validationType))
+		{
+			$this->setBadRequestResponse();
 
-		$stageId = $this->repository->createStage($type, $information, $answer, $validationType);
+			return;
+		}
+		
+		$stageTable = new StageTable();
+
+		if (!$stageTable->isValidType($type))
+		{
+			$this->setBadRequestResponse();
+
+			return;
+		}
+
+		if (!$stageTable->isValidValidationType($validationType))
+		{
+			$this->setBadRequestResponse();
+
+			return;
+		}
+
+		$stageId = $this->repository->createStage($type, $information, $validationType, $answer);
 
 		$this->setResponse(
 			array(

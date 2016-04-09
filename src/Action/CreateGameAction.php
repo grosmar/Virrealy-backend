@@ -31,8 +31,12 @@ class CreateGameAction extends RestActionAbstract
 	public function __invoke()
 	{
 		$name = (string)$this->request->post('name');
+		if (empty($name))
+		{
+			$this->setBadRequestResponse();
 
-		// TODO: Validation...
+			return;
+		}
 
 		$gameId = $this->repository->createGame($name);
 

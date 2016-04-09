@@ -81,12 +81,12 @@ class VirrealyRepository extends RepositoryAbstract
 	/**
 	 * @param string $type
 	 * @param string $information
-	 * @param string $answer
 	 * @param string $validationType
+	 * @param string $answer
 	 *
 	 * @return int
 	 */
-	public function createStage($type, $information, $answer, $validationType)
+	public function createStage($type, $information, $validationType, $answer)
 	{
 		$insert = $this->database
 			->insert(array('type', 'information', 'answer', 'validation_type'))

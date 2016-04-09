@@ -1,0 +1,114 @@
+swagger: '2.0'
+info:
+  title: Virrealy API
+  version: "1"
+host: api.virrealy.dev
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /session:
+    post:
+      summary: It initializes a game session and return with the identification of the session.
+      parameters:
+        - name: gameId
+          in: body
+          description: The ID of game.
+          required: true
+          type: integer
+      responses:
+        200:
+          description: An array of price estimates by product
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SessionId'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /session/{sessionId}:
+    get:
+      summary: It returns with the game session information.
+      parameters:
+        - name: sessionId
+          in: path
+          description: The ID of session.
+          required: true
+          type: integer
+      responses:
+        200:
+          description: The given session configuration.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Session'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /stage/{stageId}:
+      get:
+        summary: It returns with the given stage information.
+        parameters:
+          - name: stageId
+            in: path
+            description: The ID of stage.
+            required: true
+            type: integer
+        responses:
+          200:
+            description: The given stage information.
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/Stage'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+            
+definitions:
+  SessionId:
+    type: object
+    properties:
+      sessionId:
+        type: integer
+
+  Session:
+    type: object
+    properties:
+      sessionId:
+        type: integer
+      gameId:
+        type: integer
+      stages:
+        type: array
+        items:
+          $ref: '#/definitions/Stage'
+  Stage:
+    type: object
+    properties:
+      stageId:
+        type: integer
+      stageType:
+        type: string
+      information:
+        type: string
+      answer:
+        type: string
+      validationType:
+        type: string
+
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
